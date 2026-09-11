@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdint>
+#include <iomanip>
 #include "roots.cc"
 
 char i_buff[16]; // permanent buffer for conversion int => string
@@ -45,25 +46,25 @@ char* itos(int raw_num, char (&buffer)[16] = i_buff){ // honestly i only need li
     return &buffer[15-n_DIGIT]; // return the written bits, and ignore anything leading (be it garbage or previously written)
 }
 
-void scrutny(int arr[3][3]){
-    for (int i=0; i<3; i++){
-        for (int j=0; j<3; j++){
-            std::cout << itos(arr[i][j]) << ' ';
-        }
-        std::cout << std::endl;
-    }
-}
-
-struct vec2i {
-    int x;
-    int y;
-};
-
-int erpolate(vec2i cur, vec2i snk, float exp = 1){
-    //cur = current coordinate; snk = (closest) sink coordinate
-    //exp defines how "curved" the thing is
-    return 0; // supppress warning aorn (as of rn)
-}
+// void scrutny(int arr[3][3]){
+//     for (int i=0; i<3; i++){
+//         for (int j=0; j<3; j++){
+//             std::cout << itos(arr[i][j]) << ' ';
+//         }
+//         std::cout << std::endl;
+//     }
+// }
+// 
+// struct vec2i {
+//     int x;
+//     int y;
+// };
+// 
+// int erpolate(vec2i cur, vec2i snk, float exp = 1){
+//     //cur = current coordinate; snk = (closest) sink coordinate
+//     //exp defines how "curved" the thing is
+//     return 0; // supppress warning aorn (as of rn)
+// }
 
 int main(){
 //     int sinks[3][3] = {};
@@ -78,11 +79,12 @@ int main(){
     
     // int glutton[29][29] = {};
     
-    std::cout << itos(123) << std::endl;
-    std::cout << itos(-123) << std::endl;
+    std::cout << pow2(1) << std::endl;
+    std::cout << pow2(20) << std::endl;
     
-    std::cout << exp(1) << std::endl;
-    std::cout << exp(1, 100) << std::endl;
+    std::cout << std::setprecision(17) << exp(1) << std::endl;
+    std::cout  << std::setprecision(17) << exp(100) << std::endl;
+
 
 }
 
