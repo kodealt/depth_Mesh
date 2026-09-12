@@ -1,8 +1,11 @@
 #include <cstring> // i aint rewriting memcpy
 
-constexpr uint64_t E = 0x4005BF0A8B145769; //euler's number
+// constexpr uint64_t E = 0x4005BF0A8B145769; //euler's number
 constexpr double LN2 = 0.6931471805599453;
+constexpr double SQRT2=1.4142135623730951;
+// constexpr double INV_SQRT2 = SQRT2 * 0.5;
 #define EXP_MASK 0x7FF
+
 double pow2(int k){
     
     double x = 1.0;
@@ -26,7 +29,7 @@ double exp(double n){ // e^n; taylor expantion
     // n = k * ln(2) + r
     //          -> r = k*ln(2) - n
     // e^n = e^(k*ln(2)) + e^r
-    // e^n = 2^k + e^r
+    // e^n = 2^k * e^r
     //
 
     int k = int(n/LN2 + 0.5);
@@ -39,10 +42,48 @@ double exp(double n){ // e^n; taylor expantion
 }
 
 
-double ln(double n){
+double ln(double x){ //lnx sounds so much more fun to say than e^n or even e^x for that matter
+    // ehh
+    // extract mantisaa?
+    // pray on newton and mercator?
+    //
+
+    // x = m * 2^k
+    // ln(x) = ln(m*2^k)
+    // ln(x) = ln(m) + k * ln(2)
+    //            |    k -> get same as last time (exp bits)
+    //            m -> leftover bits after removing k
+    // z = substitute for m for the atanh-style series 
+
+    uint64_t bits;
+    std::memcpy(&bits, &x, sizeof(x));
+
+    int k = ((bits >> 52) & EXP_MASK) - 1023; // max exp
+    
+    bits &= ~(uint64_t(EXP_MASK) << 52); // extract 
+    bits |= uint64_t(1023) << 52;       //  the souls 
+                                       //   ...the dark souls
+
+    std::memcpy(&x, &bits, sizeof(x));
+    if (x > SQRT2){ // reduce range further from [1, 2) to [1, SQRT2)
+        x *= 0.5;
+        k++; // x * 1/2 * 2 * 2^k
+    } 
+
+    // ouuu i can save .001 ms time with hyperbolic trig taylor series (then use it for higher accuracy)
+    // then converting it to look like my lnx :teary face:
+
+    // atanh-type taylor series;
+    double z = (x - 1)/(x + 1); 
+    double z2 = z * z;
+
+    // term: 6
+    // 2 * (z + z^3/3 + z^5/5 + z^7/7 + z^9/9 + z^11/11;)
+    double res = 2 * (z + z2 * (0.333333333 + z2 * (0.2 + z2 * (0.142857143 + z2 * (0.111111111 + z2 * 0.0909090909)))));
+    return res + k * LN2;
 
 }
 
-double pow(float n, float p){
-
-}
+double pow(double a, double b){ // a^b = e^(b*lna)
+    return exp(b * ln(a));   //  thank you daddy taylor 
+}                           //   (or newton+mercator and BIG daddy euler, more specifically)

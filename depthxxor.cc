@@ -4,16 +4,6 @@
 #include "roots.cc"
 
 char i_buff[16]; // permanent buffer for conversion int => string
-// TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-// TODO: POW with DOUBLE input(s)
-// TODO:: MOVED TO `roots.cc`
-// double pow(double x, double n){
-//     int f = 1;
-//     for (int i  = 0; i<n; i++){
-//         f*=x/n;
-//     }
-//     return f;
-// }
 
 // int to string:
 char* itos(int raw_num, char (&buffer)[16] = i_buff){ // honestly i only need like what? 11 bytes? to represent max of 2^32 which is 
@@ -46,25 +36,25 @@ char* itos(int raw_num, char (&buffer)[16] = i_buff){ // honestly i only need li
     return &buffer[15-n_DIGIT]; // return the written bits, and ignore anything leading (be it garbage or previously written)
 }
 
-// void scrutny(int arr[3][3]){
-//     for (int i=0; i<3; i++){
-//         for (int j=0; j<3; j++){
-//             std::cout << itos(arr[i][j]) << ' ';
-//         }
-//         std::cout << std::endl;
-//     }
-// }
-// 
-// struct vec2i {
-//     int x;
-//     int y;
-// };
-// 
-// int erpolate(vec2i cur, vec2i snk, float exp = 1){
-//     //cur = current coordinate; snk = (closest) sink coordinate
-//     //exp defines how "curved" the thing is
-//     return 0; // supppress warning aorn (as of rn)
-// }
+void scrutny(int arr[3][3]){
+    for (int i=0; i<3; i++){
+        for (int j=0; j<3; j++){
+            std::cout << itos(arr[i][j]) << ' ';
+        }
+        std::cout << std::endl;
+    }
+}
+
+struct vec2i {
+    int x;
+    int y;
+};
+
+int erpolate(vec2i cur, vec2i snk, float exp = 1){
+    //cur = current coordinate; snk = (closest) sink coordinate
+    //exp defines how "curved" the thing is
+    return 0; // supppress warning aorn (as of rn)
+}
 
 int main(){
 //     int sinks[3][3] = {};
@@ -79,11 +69,17 @@ int main(){
     
     // int glutton[29][29] = {};
     
-    std::cout << pow2(1) << std::endl;
-    std::cout << pow2(20) << std::endl;
+    // std::cout << pow2(1) << std::endl;
+    // std::cout << pow2(20) << std::endl;
     
-    std::cout << std::setprecision(17) << exp(1) << std::endl;
-    std::cout  << std::setprecision(17) << exp(100) << std::endl;
+    // std::cout << std::setprecision(17) << exp(1) << std::endl;
+    std::cout << std::setprecision(17) << "ln2: " << ln(2) << std::endl;
+    std::cout << std::setprecision(17) << "ln4: " << ln(4.0) << std::endl;
+    std::cout << std::setprecision(17) << "ln.5: " << ln(0.5) << std::endl;
+    std::cout << std::setprecision(17) << "ln10: " << ln(10.0) << std::endl;
+    std::cout << std::setprecision(17) << "ln100: " << ln(100.0) << std::endl;
+    std::cout << std::setprecision(17) << "ln1: " << ln(1.0) << std::endl;
+    std::cout  << std::setprecision(17) << "lne^99.999: " << ln(exp(99.999)) << std::endl; // hope is i get 99.999 (or close enough);
 
 
 }
