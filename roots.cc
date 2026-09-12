@@ -87,3 +87,8 @@ double ln(double x){ //lnx sounds so much more fun to say than e^n or even e^x f
 double pow(double a, double b){ // a^b = e^(b*lna)
     return exp(b * ln(a));   //  thank you daddy taylor 
 }                           //   (or newton+mercator and BIG daddy euler, more specifically)
+
+
+double sqrt(double x){
+    return pow(x, 0.5);
+}

@@ -5,7 +5,7 @@
 
 char i_buff[16]; // permanent buffer for conversion int => string
 
-// int to string:
+// int to string: i just realized i dont even need this
 char* itos(int raw_num, char (&buffer)[16] = i_buff){ // honestly i only need like what? 11 bytes? to represent max of 2^32 which is 
     int n_DIGIT = 0;
     buffer[15] = '\0'; // last byte must always be a null terminator: reserve
@@ -39,10 +39,19 @@ char* itos(int raw_num, char (&buffer)[16] = i_buff){ // honestly i only need li
 void scrutny(int arr[3][3]){
     for (int i=0; i<3; i++){
         for (int j=0; j<3; j++){
-            std::cout << itos(arr[i][j]) << ' ';
+            std::cout << arr[i][j] << ' ';
         }
         std::cout << std::endl;
     }
+}
+
+int erpolate(vec2i cur, vec2i snk, double exp = 1){
+    //cur = current coordinate; snk = (closest) sink coordinate
+    //exp defines how "curved" the thing is
+
+    double dist = sqrt(pow(snk.x + cur.x, 2) + pow(snk.y + cur.y, 2));
+    std::cout << dist << std::endl;
+    return 0; // supppress warning 
 }
 
 struct vec2i {
@@ -50,37 +59,22 @@ struct vec2i {
     int y;
 };
 
-int erpolate(vec2i cur, vec2i snk, float exp = 1){
-    //cur = current coordinate; snk = (closest) sink coordinate
-    //exp defines how "curved" the thing is
-    return 0; // supppress warning aorn (as of rn)
-}
-
 int main(){
-//     int sinks[3][3] = {};
-//     for (int i = 0; i<3; i++){
-//         for (int j = 0; j<3; j++){
-//             sinks[i][j] = rand()%5 + 2;
-//         }
-//     }
-    // scrutny(sinks);
-    // std::cout << "\n\n\n\n" << std::flush;
+    int sinks[3][3] = {};
+    for (int i = 0; i<3; i++){
+        for (int j = 0; j<3; j++){
+            sinks[i][j] = rand()%5 + 2;
+        }
+    }
+    scrutny(sinks);
+    std::cout << "\n\n\n\n" << std::flush;
 
     
-    // int glutton[29][29] = {};
+    int glutton[29][29] = {};
     
-    // std::cout << pow2(1) << std::endl;
-    // std::cout << pow2(20) << std::endl;
+    std::cout << pow2(1) << std::endl;
+    std::cout << pow2(20) << std::endl;
     
-    // std::cout << std::setprecision(17) << exp(1) << std::endl;
-    std::cout << std::setprecision(17) << "ln2: " << ln(2) << std::endl;
-    std::cout << std::setprecision(17) << "ln4: " << ln(4.0) << std::endl;
-    std::cout << std::setprecision(17) << "ln.5: " << ln(0.5) << std::endl;
-    std::cout << std::setprecision(17) << "ln10: " << ln(10.0) << std::endl;
-    std::cout << std::setprecision(17) << "ln100: " << ln(100.0) << std::endl;
-    std::cout << std::setprecision(17) << "ln1: " << ln(1.0) << std::endl;
-    std::cout  << std::setprecision(17) << "lne^99.999: " << ln(exp(99.999)) << std::endl; // hope is i get 99.999 (or close enough);
-
 
 }
 
