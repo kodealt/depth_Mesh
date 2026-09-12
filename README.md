@@ -8,10 +8,13 @@ mostly from scratch so that the size is low
 openGL for rendering, when it comes to that
 
 to make:
-`git clone https://github.com/kodealt/depth_Mesh.git`
-`cd depth_Mesh`
-`g++ -O0 ./depth_Mesh -o ./depth_Mesh`
+```git clone https://github.com/kodealt/depth_Mesh.git```
+
+```cd depth_Mesh```
+
+
+```g++ -O0 ./depth_Mesh -o ./depth_Mesh```
 
 then run
 
-`./depth_Mesh`
+```./depth_Mesh```
