@@ -18,7 +18,7 @@ cd depth_Mesh
 ```
 
 ```
-g++ -O0 ./depth_Mesh -o ./depth_Mesh
+g++ -O0 ./depth_Mesh.cc -o ./depth_Mesh
 ```
 
 then run
