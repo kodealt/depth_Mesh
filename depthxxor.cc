@@ -4,7 +4,7 @@
 #include "roots.cc"
 
 char i_buff[16]; // permanent buffer for conversion int => string
-
+ 
 // int to string: i just realized i dont even need this
 char* itos(int raw_num, char (&buffer)[16] = i_buff){ // honestly i only need like what? 11 bytes? to represent max of 2^32 which is 
     int n_DIGIT = 0;

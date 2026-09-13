@@ -5,7 +5,7 @@ constexpr double LN2 = 0.6931471805599453;
 constexpr double SQRT2=1.4142135623730951;
 // constexpr double INV_SQRT2 = SQRT2 * 0.5;
 #define EXP_MASK 0x7FF
-
+ 
 double pow2(int k){
     
     double x = 1.0;
