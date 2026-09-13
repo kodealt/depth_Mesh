@@ -45,6 +45,11 @@ void scrutny(int arr[3][3]){
     }
 }
 
+struct vec2i {
+    int x;
+    int y;
+};
+
 int erpolate(vec2i cur, vec2i snk, double exp = 1){
     //cur = current coordinate; snk = (closest) sink coordinate
     //exp defines how "curved" the thing is
@@ -53,11 +58,6 @@ int erpolate(vec2i cur, vec2i snk, double exp = 1){
     std::cout << dist << std::endl;
     return 0; // supppress warning 
 }
-
-struct vec2i {
-    int x;
-    int y;
-};
 
 int main(){
     int sinks[3][3] = {};

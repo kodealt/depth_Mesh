@@ -1,5 +1,5 @@
 #include <cstring> // i aint rewriting memcpy
-
+#include <cstdint>
 // constexpr uint64_t E = 0x4005BF0A8B145769; //euler's number
 constexpr double LN2 = 0.6931471805599453;
 constexpr double SQRT2=1.4142135623730951;
@@ -78,8 +78,38 @@ double ln(double x){ //lnx sounds so much more fun to say than e^n or even e^x f
     double z2 = z * z;
 
     // term: 7
-    // 2 * (z + z^3/3 + z^5/5 + z^7/7 + z^9/9 + z^11/11 + z^13/13;)
-    double res = 2 * (z + z2 * (0.333333333 + z2 * (0.2 + z2 * (0.142857143 + z2 * (0.111111111 + z2 * (0.0909090909 + z2 * 0.0769230769))))));
+    // 2 * (z + z^3/3 + z^5/5 + z^7/7 + z^9/9 + z^11/11 + z^13/13); // wutthefuc?? adding term didnt help..
+
+    // atp im not even sure if using precomputed fractions makes it any faster...
+
+    double res = z;
+    z *= z2;
+    res += z * 0.333333333333333333; // 1/3
+    z *= z2;
+    res += z * 0.2; // 1/5
+    z *= z2;
+    res += z * 0.142857142857142857; // 1/7
+    z *= z2;
+    res += z * 0.111111111111111111; // 1/9
+    z *= z2;
+    res += z * 0.090909090909090909; // 1/11
+    z *= z2;
+    res += z * 0.076923076923076923; // 1/13
+    z *= z2;
+    res += z * 0.066666666666666667; // 1/15
+    res *= 2;
+    
+    // conceptually same calculation as above, but somehow floating point arithmetic isnt wanting me to be happy
+    // aka give up a bit of performance for power
+    // double res = 2 * (z + z2 * 
+    //         (0.333333333333333333+ z2 * 
+    //          (0.2 + z2 * 
+    //           (0.142857142857142857+ z2 * 
+    //            (0.111111111111111111+ z2 * 
+    //             (0.090909090909090909 + z2 * 
+    //              (0.076923076923076923 + z2 * 
+    //               0.066666666666666667
+    //               )))))));
     return res + k * LN2;
 
 }
