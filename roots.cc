@@ -77,9 +77,9 @@ double ln(double x){ //lnx sounds so much more fun to say than e^n or even e^x f
     double z = (x - 1)/(x + 1); 
     double z2 = z * z;
 
-    // term: 6
-    // 2 * (z + z^3/3 + z^5/5 + z^7/7 + z^9/9 + z^11/11;)
-    double res = 2 * (z + z2 * (0.333333333 + z2 * (0.2 + z2 * (0.142857143 + z2 * (0.111111111 + z2 * 0.0909090909)))));
+    // term: 7
+    // 2 * (z + z^3/3 + z^5/5 + z^7/7 + z^9/9 + z^11/11 + z^13/13;)
+    double res = 2 * (z + z2 * (0.333333333 + z2 * (0.2 + z2 * (0.142857143 + z2 * (0.111111111 + z2 * (0.0909090909 + z2 * 0.0769230769))))));
     return res + k * LN2;
 
 }
