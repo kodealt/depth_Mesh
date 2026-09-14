@@ -45,18 +45,38 @@ void scrutny(int arr[3][3]){
     }
 }
 
+void scrutny(double arr[28][28]){
+    for (int i=0; i<28; i++){
+        for (int j=0; j<28; j++){
+            std::cout << arr[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+}
+
 struct vec2i {
     int x;
     int y;
 };
 
-int erpolate(vec2i cur, vec2i snk, double exp = 1){
+double eqx2(double x, double k = 0.05){ // e^(k*x^2) -> the normal distribution
+    if (x < -1) {
+        x = -x;
+    }
+    if (k > 0){
+        k = -k;
+    }
+
+    return exp(k * pow(x, 2));
+    // return ((int)(exp(k * pow(x, 2))*100)+0.5) / 100.0; // round to 10ths 
+}
+
+double erpolate(vec2i cur, vec2i snk, int val, double exp = 1){
     //cur = current coordinate; snk = (closest) sink coordinate
     //exp defines how "curved" the thing is
-
-    double dist = sqrt(pow(snk.x + cur.x, 2) + pow(snk.y + cur.y, 2));
-    std::cout << dist << std::endl;
-    return 0; // supppress warning 
+    double dist = sqrt(pow(snk.x - cur.x, 2) + pow(snk.y - cur.y, 2));
+    // std::cout << dist << std::endl;
+    return val * eqx2(dist);
 }
 
 int main(){
@@ -70,12 +90,17 @@ int main(){
     std::cout << "\n\n\n\n" << std::flush;
 
     
-    int glutton[29][29] = {};
-    
-    std::cout << pow2(1) << std::endl;
-    std::cout << pow2(20) << std::endl;
-    
-
+    double glutton[28][28] = {0};
+    for (int i = 1; i < 27; i++){
+        for (int j = 0; j < 27; j++){
+            glutton[i][j] = erpolate(vec2i{i, j}, vec2i{i/9, j/9}, sinks[i/9][j/9]);
+            // std::cout << i/9 << ","<< j/9 << " ";
+        }
+        std::cout << std::endl;
+    }
+  
+    std::cout << std::setprecision(17);
+    scrutny(glutton);
 }
 
 
