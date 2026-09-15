@@ -115,6 +115,12 @@ double ln(double x){ //lnx sounds so much more fun to say than e^n or even e^x f
 }
 
 double pow(double a, double b){ // a^b = e^(b*lna)
+    if (a == 0 || a == 1 || b == 1){
+        return a;
+    }
+    if (b == 0){
+        return 1;
+    }
     return exp(b * ln(a));   //  thank you daddy taylor 
 }                           //   (or newton+mercator and BIG daddy euler, more specifically)
 

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdint>
 #include <iomanip>
+// #include <cmath>
+#include <cstdio>
 #include "roots.cc"
 
 char i_buff[16]; // permanent buffer for conversion int => string
@@ -48,7 +50,7 @@ void scrutny(int arr[3][3]){
 void scrutny(double arr[28][28]){
     for (int i=0; i<28; i++){
         for (int j=0; j<28; j++){
-            std::cout << arr[i][j] << ' ';
+            std::printf("%.2f ", arr[i][j]);
         }
         std::cout << std::endl;
     }
@@ -67,16 +69,19 @@ double eqx2(double x, double k = 0.05){ // e^(k*x^2) -> the normal distribution
         k = -k;
     }
 
-    return exp(k * pow(x, 2));
+    return exp(k * pow((x - 1), 2));
     // return ((int)(exp(k * pow(x, 2))*100)+0.5) / 100.0; // round to 10ths 
 }
 
 double erpolate(vec2i cur, vec2i snk, int val, double exp = 1){
     //cur = current coordinate; snk = (closest) sink coordinate
     //exp defines how "curved" the thing is
-    double dist = sqrt(pow(snk.x - cur.x, 2) + pow(snk.y - cur.y, 2));
+    double dist = sqrt(pow(((snk.x + 1) * 3) - cur.x, 2) + pow(((snk.y + 1) * 3) - cur.y, 2));
+    dist = (int)(dist * 100) / 100.0;
     // std::cout << dist << std::endl;
-    return val * eqx2(dist);
+    // return round(dist);
+    // return int(val * eqx2(round(dist))*100+ .5)/100.0;
+    return int(val * eqx2(dist)*100+ .5)/100.0;
 }
 
 int main(){
@@ -92,15 +97,14 @@ int main(){
     
     double glutton[28][28] = {0};
     for (int i = 1; i < 27; i++){
-        for (int j = 0; j < 27; j++){
-            glutton[i][j] = erpolate(vec2i{i, j}, vec2i{i/9, j/9}, sinks[i/9][j/9]);
+        for (int j = 1; j < 27; j++){
+            glutton[i][j] = erpolate(vec2i{i, j}, vec2i{i/3, j/3}, sinks[i/9][j/9]);
             // std::cout << i/9 << ","<< j/9 << " ";
         }
-        std::cout << std::endl;
     }
   
     std::cout << std::setprecision(17);
     scrutny(glutton);
-}
 
+}
 
